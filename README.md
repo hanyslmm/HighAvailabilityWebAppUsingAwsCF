@@ -9,4 +9,10 @@ This is a realistic scenario where we deploy an application (Apache Web Server) 
 2- Interpret the instructions & diagram to create a matching CloudFormation script.
 
 
-test push
+## Task description:
+
+Your company is creating an Instagram clone called Udagram. Developers pushed the latest version of their code in a zip file located in a public S3 Bucket.
+
+You have been tasked with deploying the application, along with the necessary supporting software into its matching infrastructure.
+
+This needs to be done in an automated fashion so that the infrastructure can be discarded as soon as the testing team finishes their tests and gathers their results.
