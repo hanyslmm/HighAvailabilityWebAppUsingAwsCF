@@ -7,3 +7,6 @@ This is a realistic scenario where we deploy an application (Apache Web Server) 
 1- Develop a diagram that is a visual aid to understand the CloudFormation script.
 
 2- Interpret the instructions & diagram to create a matching CloudFormation script.
+
+
+test push
