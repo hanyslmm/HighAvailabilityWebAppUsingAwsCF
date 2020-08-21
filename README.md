@@ -68,7 +68,9 @@ This needs to be done in an automated fashion so that the infrastructure can be 
 
 8- Extra mile, set up a bastion host to allow you to SSH into your private subnet servers. This bastion host would be on a Public Subnet with port 22 open only to your home IP address, and it would need to have the private key that you use to access the other servers.
 
-## supporting links
+## Supporting links
 
-1- Starter code. https://video.udacity-data.com/topher/2019/July/5d391e8b_final-project-starter/final-project-starter.yml
+1- Starter code:
+
+ https://video.udacity-data.com/topher/2019/July/5d391e8b_final-project-starter/final-project-starter.yml
 
