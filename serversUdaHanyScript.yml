@@ -71,6 +71,8 @@ Resources:
           unzip -o udacity.zip
       ImageId: "ami-0a07be880014c7b8e"
       KeyName: privateServersHonKey
+      SecurityGroups:
+      - Ref: WebServerSecGroup
       IamInstanceProfile: !Ref UdaHanyReadRoles
       InstanceType: t2.micro
       BlockDeviceMappings:
