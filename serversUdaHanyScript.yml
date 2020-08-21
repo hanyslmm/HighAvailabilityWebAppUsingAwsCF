@@ -1,0 +1,110 @@
+Description: >
+    Hany Salama project
+    Web servers for a highly available web app using CloudFormation.
+
+Parameters:
+
+    EnvironmentName:
+        Description: An environment name.
+        Type: String
+
+Resources:
+  #instace profile contains the IAM Role name(s) that we want to associate to our auto scaling EC2 Servers
+  ProfileWithRolesForOurApp:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - udaHanyReadOnly
+
+  WebServerSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to our hosts and SSH from local only
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${EnvironmentName}-HON-VPCID"
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 8080
+        ToPort: 8080
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+
+
+  JumpServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          #sudo apt-get upgrade -y
+          #dpkg --configure -a -y
+          # apt-get install apache2 -y
+          sleep 50
+          yum install httpd -y
+          service httpd start
+          # sudo systemctl start apache2.service
+          # #sudo systemctl status apache2.service
+          chmod 777 /var/www/html
+          cd /var/www/html
+          yum install unzip
+          # echo "hello hany" > index.html
+          # sudo apt-get install awscli -y
+          # sudo apt-get install unzip -y
+          aws s3 cp s3://udacity-demo-1/udacity.zip .
+          unzip -o udacity.zip
+      ImageId: "ami-0a07be880014c7b8e"
+      KeyName: jumpBoxHonKey
+      IamInstanceProfile: !Ref ProfileWithRolesForOurApp
+      ImageId: ami-0fe08540802c815ec
+      KeyName: jumpBoxHonKey
+      InstanceType: t2.micro
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sdk"
+        Ebs:
+          VolumeSize: '10'
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet:
+            - Ref: "WebServerSecGroup"
+          SubnetId:
+            Fn::ImportValue:
+                   !Sub "${EnvironmentName}-HON-PUB1-SN"
+
+
+    # Type: AWS::EC2::Instance
+    # Properties:
+    #   AssociatePublicIpAddress: true
+    #   IamInstanceProfile: !Ref UdaHanyInstanceProfile
+    #   SubnetId:
+    #     Fn::ImportValue:
+    #       !Sub "${EnvironmentName}-HON-PUB1-SN"
+    #   # UserData:
+    #   #   Fn::Base64: !Sub |
+    #   #     #!/bin/bash
+    #   #     sudo yum update
+    #   #     sudo usermod -aG docker ubuntu
+    #   #     sudo docker run -d -p 8080:8080 tomcat:8.0
+    #   ImageId: ami-0fe08540802c815ec
+    #   KeyName: jumpBoxHonKey
+    #   SecurityGroups:
+    #   - Ref: WebServerSecGroup
+    #   InstanceType: t2.micro
+    #   BlockDeviceMappings:
+    #   - DeviceName: "/dev/sdk"
+    #     Ebs:
+    #       VolumeSize: '10'
