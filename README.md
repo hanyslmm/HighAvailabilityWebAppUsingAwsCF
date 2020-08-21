@@ -50,7 +50,7 @@ This needs to be done in an automated fashion so that the infrastructure can be 
 9- Bonus points if you add http:// in front of the load balancer DNS Name in the output, for convenience.
 
 
-Other Considerations:
+## Other Considerations:
 
 1- 1st deploy your servers with an SSH Key into Public subnets while you are creating the script. Once done correctly, move them to the private subnets and remove the SSH Key from your Launch Configuration.
 
@@ -67,3 +67,8 @@ Other Considerations:
 7- We have to decide which values should be parameters and which will be hard-coded in the script.
 
 8- Extra mile, set up a bastion host to allow you to SSH into your private subnet servers. This bastion host would be on a Public Subnet with port 22 open only to your home IP address, and it would need to have the private key that you use to access the other servers.
+
+## supporting links
+
+1- Starter code. .yaml file
+
