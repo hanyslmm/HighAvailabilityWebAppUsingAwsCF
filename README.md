@@ -70,5 +70,5 @@ This needs to be done in an automated fashion so that the infrastructure can be 
 
 ## supporting links
 
-1- Starter code. .yaml file
+1- Starter code. https://video.udacity-data.com/topher/2019/July/5d391e8b_final-project-starter/final-project-starter.yml
 
