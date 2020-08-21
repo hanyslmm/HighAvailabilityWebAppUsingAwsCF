@@ -33,7 +33,7 @@ This needs to be done in an automated fashion so that the infrastructure can be 
 
 2- Servers will need HTTP Port: 80 inbound port open (will use it with the Load Balancer and the Load Balancer Health Check).
 
-3- Servers will need unrestricted internet access for the outboun.
+3- Servers will need unrestricted internet access for the outbound.
 
 4- Load balancer should allow all public traffic (0.0.0.0/0) on port 80 inbound.
 
