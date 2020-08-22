@@ -1,3 +1,7 @@
+# Load Balancer Web Page link
+
+http://udaha-webap-cpjpzoqpd8k7-1406778340.us-west-2.elb.amazonaws.com/
+
 # High Availability Web App Using AWS CloudFormation
 
 This is a realistic scenario where we deploy an application (Apache Web Server) and also pick up code (JavaScript and HTML) from S3 Storage and deploy it in the appropriate folder on the web server.
